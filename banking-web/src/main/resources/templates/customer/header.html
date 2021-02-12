@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Cubic Bank</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script>
+  $(document).ready(function() {
+	    $("dropdown").dropdown();
+	});
+  
+  </script>
+</head>
+<body>
+<div th:fragment="header">
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+ <div class="container-fluid">
+ <div class="navbar-header">
+      <a class="navbar-brand"  th:href="@{/customer/dashboard}">Dashboard</a>
+      <a class="navbar-brand"  href="/customer/checkRequest/">Raise Your Request</a>
+      </div>
+  <!-- Links -->
+  <ul class="navbar-nav">
+   
+     
+     <!-- Dropdown -->
+    <li class="nav-item dropdown " >
+      <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" >
+       Account 
+      </a>
+      <div class="dropdown-menu">
+       <a class="dropdown-item" href="/customer/account/myAccount/customerAccountHome" style="color:black; text-align:center;">Account Profile</a>
+    <a class="dropdown-item" href="/customer/account/myAccount" style="color:black;">Edit Account</a>
+      </div>
+    </li>
+ 	
+ 	<!-- Dropdown -->
+    <li class="nav-item dropdown " >
+      <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+        Payee 
+      </a>
+      <div class="dropdown-menu">
+          <a class="dropdown-item" href="/customer/account/addPayee">Payee Data</a>
+          
+           <a class="dropdown-item" th:href="@{/customer/addPayee}">Add Payee</a>
+
+      </div>
+    </li>
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown ">
+      <a class="nav-link dropdown-toggle"  id="navbardrop" data-toggle="dropdown" >
+        Transfer 
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/customer/account/fundtransfer/">Fund Transfer</a>
+        <a class="dropdown-item" href="/customer/account/transactionList">Transactions</a>
+      </div>
+    </li>
+    
+  </ul>
+    
+    
+   
+  
+   <ul class="nav navbar-nav navbar-right">
+     <li style="color:white;" class="nav-item"> <a href="/customer/login/"> Logout</a> </li>
+    </ul>
+ </div>
+</nav>
+
+</br>
+<p>Hello Mr. <span th:utext="${session.userSessionVO.username}" th:unless="${session == null}" style="font-weight: bold; color: blue;"></span>
+</p>
+</br>
+</div>
+
+</body>
+</html>

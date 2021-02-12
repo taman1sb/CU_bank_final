@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Add Payee</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+<div th:replace="/customer/header :: header"></div>
+
+ <br/> 
+    <div class="container" style="width:50%;">
+        <h3>Add Beneficary</h3>
+        <br />
+        <span style="color: red;font-size: 18px;" id="message"></span>
+         
+   <span th:utext="${error}" style="color: red;font-size: 18px;font-weight: bold;"></span>
+      
+      <span th:utext="${message}" style="color: blue;font-size: 18px;font-weight: bold;"></span>
+      
+         <form action="#" method="post"  th:action="@{/customer/account/savePayee}" >
+         
+       <div class="form-group">
+      <label>Beneficary Nick Name:</label>
+      <input type="text" style="width: 60%;" class="form-control"  name="payeeNickName"  id="payeeNickName" >
+    </div>
+  
+    <div class="form-group">
+      <label >Beneficary Name:</label>
+       <input type="text" style="width: 60%;" class="form-control"  name="payeeName" id="payeeName">
+    </div>
+     <div class="form-group">
+      <label>Beneficary Account Number:</label>
+      <input type="text" style="width: 60%;" class="form-control"  name="payeeAccountNo"  id="payeeAccountNo" >
+    </div>
+  
+    <div class="form-group">
+      <label >Remark:</label>
+       <input type="text" style="width: 60%;" class="form-control"  name="remarks" id="remarks">
+    </div>
+    
+    <button type="submit" class="btn btn-primary" >Confirm & Add</button>
+    <button type="reset" class="btn btn-danger">Reset</button>
+  </form>
+  
+  
+     
+
+  </div>
+  
+</body>
+</html>

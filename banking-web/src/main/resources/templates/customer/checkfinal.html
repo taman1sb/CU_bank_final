@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Check Final Request </title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+<div th:replace="/customer/header :: header"></div>
+
+ <br/> 
+   
+    
+    <div class="container">
+    
+     <form action="#" method="post"  th:action="@{/customer/checkRequest/email}">
+    <h1> Check Book Request Page</h1>
+       <br/>
+   Choose Account Number :  
+   <select class="form-control" style="width:30%;" th:name="accountNumber">
+    <option th:each="acc : ${accountList}" th:value="${acc.accountNumber}" th:text="${acc.accountNumber}" th:name="accountNumber"></option>
+</select>
+
+     <br/> <hr /> <br/> 
+    <h3>Your check book will be delivered on below address:</h3>
+    <br/>
+    <div style="margin-left:30%;">
+       <h1> <b>Address Detail</b></h1>
+     
+      
+        <div th:object = "${addressVO}" class="box">
+         <p><b><span th:utext="*{fname}"></span>   <span th:utext="*{lname}"></span></b></p>
+         <p><b><span th:utext="*{address1}"></span>,   <span th:utext="*{address2}"></span></b></p>
+         <p><b><span th:utext="*{city}"></span>,   <span th:utext="*{state}"></span></b></p>
+          <p><b><span th:utext="*{zip}"></span>   <span th:utext="*{country}"></span></b></p>                                       
+         
+        
+    <button type="submit" class="btn btn-primary btn-lg">Confirm</button>
+   
+  <a href="/customer/checkRequest/"> 
+    <button style="margin-left: 80px;" type="button" class="btn btn-secondary btn-lg">Cancel</button></a> 
+    </div>
+</div>
+</form>
+   <hr />
+   <br/><span th:utext="${message}" style="color: blue;font-size: 18px;font-weight: bold;"></span>
+ 
+  </div>
+</body>
+</html>

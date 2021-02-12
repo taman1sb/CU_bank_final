@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Fund Transfer</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<meta charset="ISO-8859-1">
+<title>Fund Transfer</title>
+
+
+<script>
+   
+        function clearText(){
+        	   //span
+        	  document.getElementById("amountError").innerHTML="";
+        	  document.getElementById("descriptionError").innerHTML="";
+        	  document.getElementById("genMessage").innerHTML="";
+        }
+   
+         function validateFunds() {
+        	   var amountObj=document.getElementById("amount");
+        	   var formattedMoney=amountObj.value;
+        	   if(formattedMoney<=0 || formattedMoney==null ){
+        		     document.getElementById("amountError").innerHTML="Amount should be more than 0.";
+        		     amountObj.focus();
+        		     return;
+        	   }
+        	   var descriptionObj=document.getElementById("description");
+               var descriptionText=descriptionObj.value;
+               if(descriptionText.length<=4){
+                     document.getElementById("descriptionError").innerHTML="What the Amount for?";
+                     descriptionObj.focus();
+                     return;
+               }
+               //THis submitting the form
+               document.fundForm.submit();
+        	   
+         }  
+         
+ </script>
+
+<style>
+.ffooter {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  height: 30px;
+  background-color:#e9ffe7;
+}
+</style>
+</head>
+<body>
+<div th:replace="/customer/header :: header"></div>
+
+<div class="container">
+
+ <br/> 
+
+  <h2>New fund transfer
+  </h2>
+
+ 
+<span th:utext="${message}" style="color: blue;font-size: 18px; font-weight: bold;"></span>
+<div th:if="${payeeInfoList !=null}" style="wide:100%">
+
+
+
+<form id="fundForm" onsubmit="return false" name="fundForm" action="#" method="post" th:action="@{/customer/account/fundtransfer}" >
+
+<br/>
+<br/>
+<div class="form-group col-md-4">Beneficiary Details:
+<select class="form-control" name="payeeID">
+<option th:each="peya : ${payeeInfoList}" th:value="${peya.id}" th:text="${peya.payeeNickName}"></option>
+</select>
+</div>
+
+<div class="form-group col-md-4">Amount to Transfer: 
+<input type="number" class="form-control" name="transferAmount" id="amount" onkeyup="clearText()"/>
+<span style="color: red; font-size: 18px; font-weight:bold;" id="amountError"></span>
+
+</div>
+
+<div class="form-group col-md-4">Description: 
+<input type="text" class="form-control" name="description" id="description" onkeyup="clearText()"/>
+<span style="color: red; font-size: 18px; font-weight:bold;" id="descriptionError"></span>
+
+</div>
+<button type="button" class="btn btn-primary" onclick="validateFunds()">Confirm & Transfer</button>
+</form>
+
+
+</div>
+<div th:if="${payeeInfoList.empty}"><br><br>
+<p><strong>You Do Not Have Any Beneficiary at the Moment, please add Beneficiaries to be shown.</strong>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Spring boot eamil teplate with Thymeleaf</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+
+    <!-- use the font -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 55px;
+        }
+    </style>
+</head>
+ <body>
+    <p th:text="${'Hello , ' + name}">  </p>
+ 	Email: <b> <span th:text="${to}"></span></b>
+    <p th:if="${name.length() > 5}">
+      Your check-book request has been sent to our bank admin for Account #.
+      <b> <span th:text="${acc}"></span></b>
+      
+    </p>
+
+      <div th:object = "${addressVO}" class="box">
+       The confirmed shipping address is :
+         <p><b><span th:utext="*{address1}"></span>,   <span th:utext="*{address2}"></span></b></p>
+         <p><b><span th:utext="*{city}"></span>,   <span th:utext="*{state}"></span></b></p>
+          <p><b><span th:utext="*{zip}"></span>   <span th:utext="*{country}"></span></b></p>        
+          </div>
+     
+    <p>
+      <b>Your enquiry</b> made on  <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></span>
+    will be taken care within few buisness days. 
+    </p>
+    
+      Regards, <br />
+      <em th:text="${sign}"></em>
+      <p th:text="${location}"></p>
+      <p th:text="${email}"></p>
+      <img th:src="|cid:bankIcon|" />
+  </body>
+</html>

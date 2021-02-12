@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Payee Table</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+  
+   
+  <script>
+  $(document).ready(function() {
+	    $('#beneficiaryList').DataTable();
+	} );
+  
+
+  function closeWin() {
+	  myWindow.close();   // Closes the new window
+	}
+  function deleteBeneficiary(benId){
+	//$("#message").html("");
+	var test =  fetch("http://localhost:999/v3/customer/deletePayee/"+benId);
+	 //fetch("http://localhost:999/v3/customer/deletePayee/"+infoID)
+	 test.then((resp) => resp.json()) 
+	    .then(data => { $("#messageFromApi").html(data.message);
+	                    $("#row_"+benId).hide();  
+	                    });
+  }
+  
+  function editBeneficiary(Id,Name,nickName,AcNo,remarks){
+	  $("#id").val(Id);
+	  $("#payeeName").val(Name);
+	 $("#Nick").val(nickName);
+	   $("#payeeAccountNo").val(AcNo);
+	   $("#remarks").val(remarks);
+	
+	  var modal= document.getElementById("editModal");
+	  modal.style.display = "block";  
+	 
+	  Close.onclick = function() {
+	      modal.style.display = "none";
+	  }
+  }
+  
+
+
+  function updatePayee(){
+	  var obj = {};
+	  obj.payeeNickName = $("#Nick").val();
+	  obj.payeeName=$("#payeeName").val();
+	  obj.payeeAccountNo=$("#payeeAccountNo").val();
+	  obj.remarks=$("#remarks").val();
+	  obj.id=$("#id").val();
+	  
+	  var jsonString= JSON.stringify(obj);
+	  const options = {
+              method: 'POST',
+              body: jsonString,
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              }
+            };
+	  var test =  fetch("http://localhost:999/v3/customer/updatePayee/",options); 
+	  test.then((resp) => resp.json()) 
+	  .then(data => { $("#messageFromApi").html(data.message); 
+	  $("#editModal").modal("hide");
+	
+	  });
+	  
+  }
+  
+  
+    
+  </script>
+  
+  <style>
+.ffooter {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  height: 30px;
+  background-color:#e9ffe7;
+}
+</style>
+</head>
+<body>
+<div th:replace="/customer/header :: header"></div>
+
+ <br/> 
+<div class="container">
+  <h2>Manage Beneficiary Payee
+  </h2>
+  
+     
+       
+       
+  
+<br/>
+   <span th:utext="${error}" style="color: red;font-size: 18px;"></span>
+    <span th:utext="${message}" id="message" style="color: red;font-size: 18px;"></span>
+    <span id="messageFromApi"  style="color: red;font-size: 18px;"></span>
+   <hr/>
+  <div style="width: 100%">
+  
+    <table  id="beneficiaryList" class="table table-striped table-bordered" style="width:100%">
+  <thead>
+  <tr>
+  <td> Beneficiary Name </td>
+  <td> Beneficiary Nick Name </td>
+  <td> Beneficiary Account number </td>
+    <td> Edit</td>
+   <td>Delete</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="payee: ${payees}" th:id="'row_'+${payee.id}">
+  	<td th:text="${payee.payeeName}"/>
+  	<td th:text="${payee.payeeNickName}"/>
+  	<td th:text="${payee.payeeAccountNo}"/>
+   	<td>
+    	<button type="button" th:name="id" class="btn btn-primary"  th:onclick="|editBeneficiary('${payee.id}','${payee.payeeName}','${payee.payeeNickName}','${payee.payeeAccountNo}','${payee.remarks}')|">Edit</button>
+  	
+  	</td>
+  	<td>
+  	<button type="button" th:name="id" class="btn btn-danger"  th:onclick="|deleteBeneficiary('${payee.id}')|">Delete</button>
+  	</td>
+  	
+  </tr>
+  
+  </tbody>
+  </table>
+  
+  </div>
+</div>
+
+
+<!-- The Modal -->
+  <div class="modal" id="editModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+       
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Payee</h4>
+          <button type="button" class="close" id="Close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <span id="messageFromApi"  style="color: red;font-size: 18px;"></span>
+               <input type="hidden"  id="id" th:value="id" > 
+       <div class="form-group">
+      <label>Beneficary Nick Name:</label>
+      <input type="text" style="width: 60%;" class="form-control"    id="Nick" th:value="payeeNickName" >
+    </div>
+  
+    <div class="form-group">
+      <label >Beneficary Name:</label>
+       <input type="text" style="width: 60%;" class="form-control"   id="payeeName" th:value="payeeName" >
+    </div>
+     <div class="form-group">
+      <label>Beneficary Account Number:</label>
+      <input type="text" style="width: 60%;" class="form-control"   id="payeeAccountNo" th:value="payeeAccountNo" >
+    </div>
+  
+    <div class="form-group">
+      <label >Remark:</label>
+       <input type="text" style="width: 60%;" class="form-control"  id="remarks" th:value="remarks"  >
+    </div>
+      <button type="button" th:onclick="|updatePayee()|" class="btn btn-primary" id="Close" >Update Payee</button>
+    
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+      
+        </div>
+     
+      </div>
+    </div>
+  </div>
+</body>
+<footer  class="ffooter">
+</footer>
+</html>

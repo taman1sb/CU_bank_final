@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Check Request Edit</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+
+.noBorder {
+    border:none !important;
+}
+</style>
+</head>
+
+<body>
+<div th:replace="/customer/header :: header"></div>
+
+ <br/> 
+   
+    <div class="container" style="width:50%;">
+        <h3>Address Add/Update Form </h3>
+       
+        <span style="color: red;font-size: 18px;" id="message"></span>
+         
+   <span th:text="${error}" style="color: red;font-size: 18px;font-weight: bold;"></span>
+      
+         <form action="#" method="post"  th:action="@{/customer/check/update}" th:object="${addressVO}">
+            <table  style=" border:none !important;font-size: 16px;">
+              
+                <input type="hidden" class="form-control" th:field="*{id}" id="id" />  
+              
+                  <tr >
+                     <td>First Name:</td>
+                    <td>
+                     <input type="text" class="form-control" th:field="*{fname}"  />
+                    </td>
+                    </tr>
+                   <tr>
+                     <td>Last Name:</td>
+                    <td>
+                     <input type="text" class="form-control" th:field="*{lname}"  />
+                    </td>
+                        </tr>
+                    <tr>
+                       
+                       <td>Phone Number:</td>
+                    <td>
+                     <input type="text" class="form-control" th:field="*{pnumber}"  />
+                    </td>
+            </tr>
+                    <tr>
+                     <td>Address 1:</td>
+                    <td>
+                     <input type="text" class="form-control" th:field="*{address1}"  />
+                    </td>
+                     </tr>
+                    <tr>
+                     <td>Address 2:</td>
+                    <td>
+                     <input type="text" class="form-control" th:field="*{address2}"  />
+                    </td>
+                     </tr>
+                    <tr>
+                    <td>City :</td>
+                    <td><input type="text" class="form-control" th:field="*{city}"/></td>
+                     </tr>
+                    <tr> <td>State :</td>
+                    <td><input type="text" class="form-control" th:field="*{state}"/></td>
+                     </tr>
+                    <tr><td>Zip:</td>
+                    <td>
+                    <input type="text" class="form-control" th:field="*{zip}"/>
+                     </tr>
+                    <tr> <td>Country:</td>
+                    <td>
+                    <input type="text" class="form-control" th:field="*{country}"/>
+                    </td>
+                    
+                </tr>
+            </table>
+             
+             
+              <hr>
+                  <button type="submit" class="btn btn-primary">Save & Submit</button> 
+                    
+                    <span th:if="*{id==0}">
+                    <a th:href="@{/customer/dashboard}">  
+    <button style="margin-left: 100px;" type="button" class="btn btn-danger">Cancel</button></a> 
+                </span>
+                <span th:if="*{id!=0}">
+                 <a href="/customer/checkRequest/">  
+    <button style="margin-left: 100px;" type="button" class="btn btn-danger">Cancel</button></a> 
+                 </span>
+                    </form>
+                   <br/> 
+      
+  <span th:utext="${message}" style="color: red;font-size: 18px;font-weight: bold;"></span>
+
+  </div>
+  
+</body>
+</html>

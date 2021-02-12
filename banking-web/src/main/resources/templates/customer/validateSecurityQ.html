@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Verification </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+  <style>
+.ffooter {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  height: 30px;
+  background-color:#e9ffe7;
+}
+</style>
+</head>
+<body>
+<header style="height: 30px;background-color: maroon;">
+</header>
+<div class="container">
+  <h2>Security Question verification
+  </h2>
+  <img th:src="@{/images/security_questions.png}" alt="Logo" style="height: 140px"/>
+   <br/>
+   
+      <span th:utext="${message}" style="color: blue;font-size: 18px;font-weight: bold;"></span>
+  <div style="width: 70%">
+   <form th:action="@{/customer/validateAnswer}" method="POST"   >
+     <input type="hidden" class="form-control" th:value="${que.loginid}" name="loginid" />
+     
+    <div class="form-group">
+      <label for="question1"><b>Security Question1:</b></label>
+      <input   class="form-control"  th:value="${que.securityQuestion1}" name="securityQuestion1" readonly="readonly" >
+       
+ 
+      <label for="answer1"><b>Answer:</b></label>
+        <input type="text"  class="form-control"   th:value="${que.securityQuestionAnswer1}" name="securityQuestionAnswer1">
+    </div>
+        <div class="form-group">
+      <label for="question2"><b>Security Question2:</b></label>
+        <input   class="form-control"  th:value="${que.securityQuestion2}" name="securityQuestion2" readonly="readonly" >   
+       <label for="answer2"><b>Answer:</b></label>
+           <input type="text"  class="form-control"   th:value="${que.securityQuestionAnswer2}" name="securityQuestionAnswer2">
+    </div>
+  
+    <span th:utext="${error}" style="color: red;font-size: 18px;font-weight: bold;"></span>
+   
+      <br/>
+       <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="reset" class="btn btn-danger">Clear </button>
+    <a href="/login"> 
+    <button type="button" class="btn btn-warning">Login</button>
+    </a>
+  </form>
+  </div>
+</div>
+<footer  class="ffooter">
+</footer>
+
+</body>
+</html>

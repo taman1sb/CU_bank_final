@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Check Request Home</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style type="text/css">
+a{
+color: black;
+}
+</style>
+
+</head>
+
+<body>
+<div th:replace="/customer/header :: header"></div>
+
+ <br/> 
+   
+     
+    <div class="container">
+    <br/>  
+        <h3> Address Detail </h3>
+     
+      
+        <div th:object = "${addressVO}" class="box">
+         <p><b><span th:utext="*{fname}"></span>   <span th:utext="*{lname}"></span></b></p>
+         <p><b><span th:utext="*{address1}"></span>,   <span th:utext="*{address2}"></span></b></p>
+         <p><b><span th:utext="*{city}"></span>,   <span th:utext="*{state}"></span></b></p>
+          <p><b><span th:utext="*{zip}"></span>   <span th:utext="*{country}"></span></b></p>                                     
+       <div class="text-right">  
+    <span  th:utext="${message}" style="text-align:right; color: blue;font-size: 25px;font-weight: bold;"></span>
+ 
+ <br/>
+ <a href="/customer/checkRequestEdit"> 
+    <button type="button" class="btn btn-primary">Edit</button></a>
+  <a th:href="@{/customer/address/delete}"> 
+    <button  style="margin-left: 50px;" type="button" class="btn btn-warning">Delete</button></a> 
+    </div>
+</div>
+   <hr />
+   <br/>
+
+  <h3><a th:href="@{/customer/final/checkRequest}">Check Book Request</a> </h3>
+   <h3><a href="#">Loan Request</a> </h3>
+   <h3><a href="#">Change Mobile Number</a> </h3>
+   <h3><a  href="#">Raise Credit Card Request</a> </h3>
+ 
+  </div>
+</body>
+</html>
